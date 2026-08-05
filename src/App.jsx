@@ -33,7 +33,8 @@ const TIER_ONE_RELIC_IDS = new Set(tierOneRelics.map((relic) => relic.id))
 const PVM_TARGET_IDS = new Set(pvmRegions.flatMap((region) => region.targets.map((target) => target.id)))
 const GEAR_MILESTONE_IDS = new Set(gearMilestones.map((item) => item.id))
 const ACCOUNT_MODES = new Set(["Member", "Free-to-play"])
-const COMBAT_STYLES = new Set(["Undecided", "Melee", "Ranged", "Magic", "Necromancy", "Hybrid"])
+const COMBAT_STYLE_OPTIONS = ["Undecided", "Melee", "Ranged", "Magic", "Necromancy", "Hybrid"]
+const COMBAT_STYLES = new Set(COMBAT_STYLE_OPTIONS)
 const OBJECTIVES = new Set(["Balanced progression", "Boss progression", "Task completion", "Skilling route", "Collection goals"])
 const GOAL_PHASES = new Set(["Opening", "Early", "Mid", "Late"])
 
@@ -321,7 +322,7 @@ function App() {
         </header>
         <div className="content">
           {activeView === "overview" && <Overview plan={plan} updatePlan={updatePlan} go={go} readiness={readiness} />}
-          {activeView === "regions" && <Regions plan={plan} toggleRegion={toggleRegion} />}
+          {activeView === "regions" && <Regions plan={plan} updatePlan={updatePlan} toggleRegion={toggleRegion} />}
           {activeView === "relics" && <Relics plan={plan} updatePlan={updatePlan} />}
           {activeView === "pvm" && <PvmProgression plan={plan} updatePlan={updatePlan} go={go} />}
           {activeView === "gear" && <GearProgression plan={plan} updatePlan={updatePlan} go={go} />}
@@ -365,7 +366,7 @@ function Overview({ plan, updatePlan, go, readiness }) {
           <input id="build-name" className="hero-input" value={plan.name} onChange={(event) => updatePlan({ name: event.target.value })} />
           <div className="three-fields">
             <label><span>Access</span><select value={plan.accountMode} onChange={(event) => updatePlan({ accountMode: event.target.value })}><option>Member</option><option>Free-to-play</option></select></label>
-            <label><span>Combat focus</span><select value={plan.combatStyle} onChange={(event) => updatePlan({ combatStyle: event.target.value })}><option>Undecided</option><option>Melee</option><option>Ranged</option><option>Magic</option><option>Necromancy</option><option>Hybrid</option></select></label>
+            <label><span>Combat focus</span><select value={plan.combatStyle} onChange={(event) => updatePlan({ combatStyle: event.target.value })}>{COMBAT_STYLE_OPTIONS.map((style) => <option key={style}>{style}</option>)}</select></label>
             <label><span>Main objective</span><select value={plan.objective} onChange={(event) => updatePlan({ objective: event.target.value })}><option>Balanced progression</option><option>Boss progression</option><option>Task completion</option><option>Skilling route</option><option>Collection goals</option></select></label>
           </div>
           <div className="readiness-block">
@@ -410,31 +411,58 @@ function Overview({ plan, updatePlan, go, readiness }) {
   )
 }
 
-function Regions({ plan, toggleRegion }) {
+function Regions({ plan, updatePlan, toggleRegion }) {
   const freeMode = plan.accountMode === "Free-to-play"
+  const focusIsSet = plan.combatStyle !== "Undecided"
   return (
     <>
       <PageIntro kicker="Region constellation" title={<>Choose the shape of <span>your Gielinor.</span></>} copy={freeMode ? "Dedicated free-to-play worlds include the available F2P regions and Relic tiers I–III. Use the optional picker below to preserve a route for a seamless membership upgrade." : "Misthalin and Havenhythe are available at the start; Karamja arrives at milestone one. Choose exactly three more from the eight confirmed regions."} />
       <section className="base-region-grid">
-        {baseRegions.map((region, index) => <article key={region.id} className="base-region-card"><span>{region.mark}</span><div><small>{index < 2 ? "Starting region" : "First milestone"}</small><strong>{region.name}</strong><p>{region.detail}</p></div><em>Official</em></article>)}
+        {baseRegions.map((region, index) => {
+          const combatRegion = pvmRegions.find((item) => item.id === region.id)
+          return <article key={region.id} className="base-region-card"><span>{region.mark}</span><div><small>{index < 2 ? "Starting region" : "First milestone"}</small><strong>{region.name}</strong><p>{region.detail}</p><p className="base-region-pvm"><b>Included combat:</b> {combatRegion?.targets.map((target) => target.name).join(" · ")}</p></div><em>Official</em></article>
+        })}
       </section>
-      <div className="selection-bar"><div><span className="selection-number">{plan.regions.length}</span><p><strong>of 3 optional regions chosen</strong><small>{freeMode ? "Membership-upgrade plan" : "Selections are permanent in the League"}</small></p></div><div className="mini-slots">{[0, 1, 2].map((index) => <i key={index} className={index < plan.regions.length ? "filled" : ""} />)}</div></div>
+      <div className="selection-bar">
+        <div><span className="selection-number">{plan.regions.length}</span><p><strong>of 3 optional regions chosen</strong><small>{freeMode ? "Membership-upgrade plan" : "Selections are permanent in the League"}</small></p></div>
+        <div className="selection-tools">
+          <label className="region-focus"><span>Combat lens</span><select value={plan.combatStyle} onChange={(event) => updatePlan({ combatStyle: event.target.value })}>{COMBAT_STYLE_OPTIONS.map((style) => <option key={style}>{style}</option>)}</select></label>
+          <div className="mini-slots" role="img" aria-label={`${plan.regions.length} of 3 region choices filled`}>{[0, 1, 2].map((index) => <i key={index} className={index < plan.regions.length ? "filled" : ""} />)}</div>
+        </div>
+      </div>
       <section className="region-grid">
         {regionOptions.map((region) => {
           const selected = plan.regions.includes(region.id)
           const order = plan.regions.indexOf(region.id) + 1
-          const fit = region.fit.includes(plan.objective) || region.fit.includes(plan.combatStyle)
+          const combatRegion = pvmRegions.find((item) => item.id === region.id)
+          const combatMatch = focusIsSet && region.combat.styles.includes(plan.combatStyle)
+          const objectiveMatch = region.fit.includes(plan.objective)
+          const matchLabel = combatMatch ? `${plan.combatStyle} synergy` : objectiveMatch ? "Matches objective" : region.status
           return (
-            <article key={region.id} className={`panel region-card ${selected ? "selected" : ""}`}>
-              <div className="region-card-top"><span className="large-seal" style={{ "--region-color": region.color }}>{region.mark}</span><span className="status-pill">{fit ? "Matches your focus" : region.status}</span></div>
+            <article key={region.id} className={`panel region-card ${selected ? "selected" : ""}`} style={{ "--region-color": region.color }}>
+              <div className="region-card-top"><span className="large-seal">{region.mark}</span><span className={`status-pill ${combatMatch || objectiveMatch ? "match" : ""}`}>{matchLabel}</span></div>
               <h2>{region.name}</h2><p>{region.summary}</p>
               <div className="tags">{region.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+              <section className="region-combat-read" aria-label={`${region.name} combat details`}>
+                <div className="region-intel-heading"><small>Combat read</small><em>{combatRegion?.targets.length || 0} reward highlights</em></div>
+                <div className="region-style-tags">
+                  {region.combat.styles.map((style) => <span className={style === plan.combatStyle ? "active" : ""} key={style}>{style}</span>)}
+                </div>
+                <p>{region.combat.note}</p>
+                <div className="region-loot-list">
+                  {combatRegion?.targets.map((target) => <article className="region-loot-row" key={target.id}>
+                    <div><strong>{target.name}</strong><small>{target.difficulty}</small></div>
+                    <p><span aria-hidden="true">◆</span>{target.loot}</p>
+                  </article>)}
+                </div>
+              </section>
               <button className={selected ? "selected-button" : "select-button"} onClick={() => toggleRegion(region.id)}>{selected ? `✓ Choice ${order} · remove` : "+ Add to build"}</button>
             </article>
           )
         })}
       </section>
-      <p className="source-line">Region scope and examples: <a href={sources[0].url} target="_blank" rel="noreferrer">official Equilibrium overview ↗</a></p>
+      <p className="region-caveat">Boss and loot callouts are planning guidance based on known region boundaries. Exact League tasks are still pending; League-specific drop changes are called out where confirmed.</p>
+      <p className="source-line">Region scope and examples: <a href={sources[0].url} target="_blank" rel="noreferrer">official Equilibrium overview ↗</a> · <a href={sources[1].url} target="_blank" rel="noreferrer">official drop FAQ ↗</a></p>
     </>
   )
 }
@@ -474,14 +502,14 @@ function Relics({ plan, updatePlan }) {
         </div>
         <aside className="panel reveal-panel">
           <p className="eyebrow">Reveal index</p><h2>Known names, tiers pending</h2><p>These relics are official reveals, but their final tier placement was not published in the source text as of this dataset.</p>
-          <div className="reveal-list">{revealedRelics.map((relic) => <div key={relic.name}><span>✦</span><p><strong>{relic.name}</strong><small>{relic.summary}</small></p><em>{relic.revealed}</em></div>)}</div>
+          <div className="reveal-list">{revealedRelics.map((relic) => <div className={relic.latest ? "latest-reveal" : undefined} key={relic.name}><span>✦</span><p><strong>{relic.name}</strong><small>{relic.summary}</small></p><em>{relic.latest ? "Latest · " : ""}{relic.revealed}</em></div>)}</div>
           <a className="source-button" href={sources[1].url} target="_blank" rel="noreferrer">Open daily reveal hub ↗</a>
         </aside>
       </section>
 
       <section className="blessing-section">
         <div className="section-heading"><div><p className="eyebrow">Eight blessing tiers · confirmed structure</p><h2>Walk the line between Order, Balance & Chaos</h2></div><span className="reset-chip">↻ 3 resets during the League</span></div>
-        <p className="section-copy">Choose a path at tiers 1–3 and 5–7. Your majority determines the God Blessing at tiers 4 and 8; one of each path resolves to Balance.</p>
+        <p className="section-copy">Choose a path at tiers 1–3 and 5–7. Your majority within each three-choice group determines its God Blessing at tiers 4 and 8; one of each path resolves to Balance.</p>
         <div className="blessing-path-board">
           {[1, 2, 3].map((tier) => <BlessingTier key={tier} tier={tier} selected={plan.blessings[tier]} choose={chooseBlessing} />)}
           <GodTier tier={4} god={firstGod} />

@@ -2,7 +2,7 @@
 
 A local-first build and launch-route planner for **RuneScape 3 Leagues II: EQUILIBRIUM**.
 
-The app deliberately separates official facts from unrevealed information. It currently includes confirmed information available through 4 August 2026 and labels unpublished task thresholds, later relic tier assignments, and remaining Blessing details as pending.
+The app deliberately separates official facts from unrevealed information. It currently includes confirmed information available through 5 August 2026 and labels unpublished task thresholds, the task list, later relic tier assignments, and remaining daily reveals as pending.
 
 ## Run it
 
@@ -31,5 +31,7 @@ Exports include both the plan schema and `DATA_VERSION`, making it possible to i
 
 - [Official Equilibrium overview](https://secure.runescape.com/m=news/countdown-to-leagues-ii-equilibrium)
 - [Official daily reveal hub and FAQ](https://secure.runescape.com/m=news/leagues-equilibrium-reveals---releasing-august-10th)
+- [Official Reveal 9: Blessing tiers IV–VI and God Tier II](https://secure.runescape.com/m=news/leagues-equilibrium-reveals---releasing-august-10th#latest)
+- [Official Reveal 8: Naragi Edict, Production Master and Antiquarian](https://www.youtube.com/watch?v=IHcGKOB70E0)
 
 This is a fan planning tool and is not affiliated with Jagex.

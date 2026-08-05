@@ -1,4 +1,4 @@
-export const DATA_VERSION = "2026-08-04.official-4"
+export const DATA_VERSION = "2026-08-06.daily-reveal-9"
 
 export const sources = [
   {
@@ -14,6 +14,20 @@ export const sources = [
     publisher: "RuneScape",
     published: "Updated daily",
     url: "https://secure.runescape.com/m=news/leagues-equilibrium-reveals---releasing-august-10th",
+  },
+  {
+    id: "official-reveal-9",
+    label: "Official Reveal 9: Blessing tiers IV–VI & God Tier II",
+    publisher: "RuneScape",
+    published: "5 Aug 2026",
+    url: "https://secure.runescape.com/m=news/leagues-equilibrium-reveals---releasing-august-10th#latest",
+  },
+  {
+    id: "official-reveal-8",
+    label: "Official Reveal 8: Naragi Edict, Production Master & Antiquarian",
+    publisher: "RuneScape",
+    published: "4 Aug 2026",
+    url: "https://www.youtube.com/watch?v=IHcGKOB70E0",
   },
   {
     id: "official-relic-passives",
@@ -39,8 +53,8 @@ export const sources = [
 ]
 
 export const sourceStatus = {
-  label: "Official information through 4 August",
-  note: "Core rules, regions and progression are confirmed. Relic tier placement, most exact effects, task thresholds and the task list are still being revealed.",
+  label: "Official information through 5 August",
+  note: "Core rules, regions, progression and the full Blessing tree are confirmed. Final relic tier placement, the remaining daily reveals, task thresholds and the task list are still unpublished.",
 }
 
 export const leagueFacts = [
@@ -68,6 +82,10 @@ export const regionOptions = [
     summary: "A combat-and-crafting route featuring Falador and the God Wars Dungeon.",
     tags: ["God Wars Dungeon", "Falador", "Bossing"],
     fit: ["Melee", "Ranged", "Magic", "Boss progression"],
+    combat: {
+      styles: ["Melee", "Ranged", "Magic", "Necromancy"],
+      note: "The broadest early armour ladder: GWD and Nex support every style, while Subjugation feeds Necromancy upgrades and AoD caps the Magic chase.",
+    },
   },
   {
     id: "kandarin",
@@ -78,6 +96,10 @@ export const regionOptions = [
     summary: "A deep skilling region with Player-Owned Farm, Hall of Memories and Deep Sea Fishing.",
     tags: ["Player-Owned Farm", "Divination", "Fishing"],
     fit: ["Skilling route", "Balanced progression", "Collection goals"],
+    combat: {
+      styles: ["Ranged", "Hybrid"],
+      note: "Lower boss density, but strong account support: Ancient Invention improves every setup and Legiones provide a direct Ranged weapon project.",
+    },
   },
   {
     id: "fremennik",
@@ -88,6 +110,10 @@ export const regionOptions = [
     summary: "The northern province and its islands, including Neitiznot, Jatizso and Lunar Isle.",
     tags: ["Northern islands", "Lunar Isle", "Exploration"],
     fit: ["Task completion", "Balanced progression"],
+    combat: {
+      styles: ["Hybrid", "Magic"],
+      note: "A utility-led pick. Dagannoth Kings reward switching between styles, while Lunar spells improve sustain and support rather than raw weapon tiers.",
+    },
   },
   {
     id: "forinthry",
@@ -98,6 +124,10 @@ export const regionOptions = [
     summary: "The Wilderness route: dangerous Slayer enemies plus access to Daemonheim and its shop.",
     tags: ["Wilderness", "Daemonheim", "Slayer"],
     fit: ["Boss progression", "Task completion", "Melee"],
+    combat: {
+      styles: ["Magic", "Ranged", "Hybrid"],
+      note: "A deep all-round combat route: Daemonheim bridges weapon tiers, ED2 favours Magic rewards and ED3 offers a major Ranged capstone.",
+    },
   },
   {
     id: "desert",
@@ -108,6 +138,10 @@ export const regionOptions = [
     summary: "A broad route through Menaphos, Het's Oasis and the Kharidian Desert.",
     tags: ["Menaphos", "Het's Oasis", "Exploration"],
     fit: ["Boss progression", "Skilling route", "Task completion"],
+    combat: {
+      styles: ["Melee", "Magic", "Hybrid"],
+      note: "The fullest solo boss ladder among the optional regions, with scalable GWD2 progression into Drygores, Telos weapons and Amascut rewards.",
+    },
   },
   {
     id: "morytania",
@@ -118,6 +152,10 @@ export const regionOptions = [
     summary: "An eastern PvM and Archaeology route with Araxxor and the Everlight dig site.",
     tags: ["Araxxor", "Everlight", "Slayer"],
     fit: ["Boss progression", "Collection goals", "Melee"],
+    combat: {
+      styles: ["Melee", "Ranged", "Magic"],
+      note: "A focused classic-combat route: Barrows starts the armour and defender chain, then Araxxor turns it into your choice of T90 weapon.",
+    },
   },
   {
     id: "tirannwn",
@@ -128,6 +166,10 @@ export const regionOptions = [
     summary: "The elven lands, with Prifddinas immediately accessible and the Lost Grove.",
     tags: ["Prifddinas", "Lost Grove", "Skilling"],
     fit: ["Skilling route", "Boss progression", "Collection goals"],
+    combat: {
+      styles: ["Ranged", "Hybrid"],
+      note: "Excellent universal support through Prifddinas and Cinderbanes, with a demanding group capstone that pays out premium Ranged and pocket-slot gear.",
+    },
   },
   {
     id: "anachronia",
@@ -138,6 +180,10 @@ export const regionOptions = [
     summary: "Dinosaurs across combat, hunting and farming, including the Anachronia Dinosaur Farm.",
     tags: ["Dinosaurs", "Hunter", "Farming"],
     fit: ["Skilling route", "Boss progression", "Collection goals"],
+    combat: {
+      styles: ["Ranged", "Magic", "Necromancy", "Hybrid"],
+      note: "A style-diverse upgrade region: complete Matriarch rings cover the combat triangle, Raksha supplies major abilities and Osseous adds Necromancy value.",
+    },
   },
 ]
 
@@ -154,11 +200,11 @@ export const pvmRegions = [
     color: "#9ab39b",
     availability: "Starting region",
     targets: [
-      { id: "misthalin-hermod", phase: "foundation", name: "Hermod", difficulty: "Learner", styles: ["Necromancy"], payoff: "Start the Necromancy armour upgrade path and practise clean, repeatable kills." },
-      { id: "misthalin-arch-glacor", phase: "foundation", name: "Arch-Glacor", difficulty: "Scalable", styles: ["All styles"], payoff: "Add mechanics at your own pace; build toward Scripture of Wen and Dark ice upgrades." },
-      { id: "misthalin-kerapac", phase: "upgrade", name: "Kerapac", difficulty: "Mid → hard", styles: ["Magic", "All styles"], payoff: "Chase Greater Concentrated Blast, Scripture of Jas and hard-mode staff pieces." },
-      { id: "misthalin-rasial", phase: "capstone", name: "Rasial", difficulty: "Endgame", styles: ["Necromancy"], payoff: "The direct T95 Necromancy weapon and First Necromancer armour chase." },
-      { id: "misthalin-zamorak", phase: "capstone", name: "Zamorak", difficulty: "Enrage", styles: ["All styles"], payoff: "Scale enrage for an endgame all-style test and high-tier weapon, armour and ability rewards." },
+      { id: "misthalin-hermod", phase: "foundation", name: "Hermod", difficulty: "Learner", styles: ["Necromancy"], loot: "Necromancy armour upgrade materials", payoff: "Start the Necromancy armour upgrade path and practise clean, repeatable kills." },
+      { id: "misthalin-arch-glacor", phase: "foundation", name: "Arch-Glacor", difficulty: "Scalable", styles: ["All styles"], loot: "Scripture of Wen · Dark ice upgrades", payoff: "Add mechanics at your own pace; build toward Scripture of Wen and Dark ice upgrades." },
+      { id: "misthalin-kerapac", phase: "upgrade", name: "Kerapac", difficulty: "Mid → hard", styles: ["Magic", "All styles"], loot: "Greater Concentrated Blast · Scripture of Jas · staff pieces", payoff: "Chase Greater Concentrated Blast, Scripture of Jas and hard-mode staff pieces." },
+      { id: "misthalin-rasial", phase: "capstone", name: "Rasial", difficulty: "Endgame", styles: ["Necromancy"], loot: "T95 Necromancy weapons · First Necromancer armour", payoff: "The direct T95 Necromancy weapon and First Necromancer armour chase." },
+      { id: "misthalin-zamorak", phase: "capstone", name: "Zamorak", difficulty: "Enrage", styles: ["All styles"], loot: "High-tier weapons · armour · ability rewards", payoff: "Scale enrage for an endgame all-style test and high-tier weapon, armour and ability rewards." },
     ],
   },
   {
@@ -167,8 +213,8 @@ export const pvmRegions = [
     color: "#91a5bd",
     availability: "Starting region",
     targets: [
-      { id: "havenhythe-ivar", phase: "foundation", name: "Ivar, King of Bones", difficulty: "Learner · F2P", styles: ["All styles"], payoff: "A low-risk first boss for prayer switching, movement and early supplies." },
-      { id: "havenhythe-silverquill", phase: "foundation", name: "Silverquill", difficulty: "Early game", styles: ["Ranged", "All styles"], payoff: "Practise telegraphed attacks and gather spines used for Havenhythe ammunition." },
+      { id: "havenhythe-ivar", phase: "foundation", name: "Ivar, King of Bones", difficulty: "Learner · F2P", styles: ["All styles"], loot: "Early combat supplies", payoff: "A low-risk first boss for prayer switching, movement and early supplies." },
+      { id: "havenhythe-silverquill", phase: "foundation", name: "Silverquill", difficulty: "Early game", styles: ["Ranged", "All styles"], loot: "Spines for Havenhythe ammunition", payoff: "Practise telegraphed attacks and gather spines used for Havenhythe ammunition." },
     ],
   },
   {
@@ -177,8 +223,8 @@ export const pvmRegions = [
     color: "#c99566",
     availability: "First milestone",
     targets: [
-      { id: "karamja-jad", phase: "foundation", name: "TzTok-Jad", difficulty: "Wave challenge", styles: ["All styles"], payoff: "Secure a Fire cape and prove your prayer-switching setup." },
-      { id: "karamja-har-aken", phase: "upgrade", name: "Har-Aken", difficulty: "Long-form", styles: ["All styles"], payoff: "Complete the Fight Kiln for a style-specific kiln cape before capstone PvM." },
+      { id: "karamja-jad", phase: "foundation", name: "TzTok-Jad", difficulty: "Wave challenge", styles: ["All styles"], loot: "Fire cape", payoff: "Secure a Fire cape and prove your prayer-switching setup." },
+      { id: "karamja-har-aken", phase: "upgrade", name: "Har-Aken", difficulty: "Long-form", styles: ["All styles"], loot: "Style-specific TokHaar-Kal capes", payoff: "Complete the Fight Kiln for a style-specific kiln cape before capstone PvM." },
     ],
   },
   {
@@ -187,9 +233,9 @@ export const pvmRegions = [
     color: "#d8bd77",
     availability: "Optional unlock",
     targets: [
-      { id: "asgarnia-gwd1", phase: "foundation", name: "God Wars Dungeon", difficulty: "Early farm", styles: ["All styles"], payoff: "Build a T70 power-armour base, including Subjugation for Necromancy upgrades." },
-      { id: "asgarnia-nex", phase: "upgrade", name: "Nex", difficulty: "Group or solo", styles: ["All styles"], payoff: "Farm T80 power armour and the components that underpin several later upgrades." },
-      { id: "asgarnia-aod", phase: "capstone", name: "Nex: Angel of Death", difficulty: "Group endgame", styles: ["Magic", "All styles"], payoff: "A high-end group target for T92 dual-wield Magic weapons and Praesul codices." },
+      { id: "asgarnia-gwd1", phase: "foundation", name: "God Wars Dungeon", difficulty: "Early farm", styles: ["All styles"], loot: "T70 power armour · Subjugation", payoff: "Build a T70 power-armour base, including Subjugation for Necromancy upgrades." },
+      { id: "asgarnia-nex", phase: "upgrade", name: "Nex", difficulty: "Group or solo", styles: ["All styles"], loot: "T80 power armour · upgrade components", payoff: "Farm T80 power armour and the components that underpin several later upgrades." },
+      { id: "asgarnia-aod", phase: "capstone", name: "Nex: Angel of Death", difficulty: "Group endgame", styles: ["Magic", "All styles"], loot: "T92 Magic dual wield · Praesul codices", payoff: "A high-end group target for T92 dual-wield Magic weapons and Praesul codices." },
     ],
   },
   {
@@ -198,8 +244,8 @@ export const pvmRegions = [
     color: "#7ead84",
     availability: "Optional unlock",
     targets: [
-      { id: "kandarin-ancient-invention", phase: "foundation", name: "Ancient Invention", difficulty: "Support unlock", styles: ["All styles"], payoff: "Use Stormguard Citadel access to prepare stronger gizmos and perks for later farms." },
-      { id: "kandarin-legiones", phase: "upgrade", name: "Legiones", difficulty: "95 Slayer", styles: ["Ranged"], payoff: "Turn keystones and signets into the Ascension crossbow progression path." },
+      { id: "kandarin-ancient-invention", phase: "foundation", name: "Ancient Invention", difficulty: "Support unlock", styles: ["All styles"], loot: "Ancient gizmos · stronger perks", payoff: "Use Stormguard Citadel access to prepare stronger gizmos and perks for later farms." },
+      { id: "kandarin-legiones", phase: "upgrade", name: "Legiones", difficulty: "95 Slayer", styles: ["Ranged"], loot: "Ascension signets → crossbows", payoff: "Turn keystones and signets into the Ascension crossbow progression path." },
     ],
   },
   {
@@ -208,8 +254,8 @@ export const pvmRegions = [
     color: "#88b8bc",
     availability: "Optional unlock",
     targets: [
-      { id: "fremennik-dks", phase: "foundation", name: "Dagannoth Kings", difficulty: "Early trio", styles: ["Hybrid", "All styles"], payoff: "Collect the classic combat rings while building confidence switching styles." },
-      { id: "fremennik-lunar-support", phase: "upgrade", name: "Lunar combat support", difficulty: "Support unlock", styles: ["Magic", "All styles"], payoff: "Prepare Lunar spellbook utility and island supplies for sustained bossing." },
+      { id: "fremennik-dks", phase: "foundation", name: "Dagannoth Kings", difficulty: "Early trio", styles: ["Hybrid", "All styles"], loot: "Classic combat rings", payoff: "Collect the classic combat rings while building confidence switching styles." },
+      { id: "fremennik-lunar-support", phase: "upgrade", name: "Lunar combat support", difficulty: "Support unlock", styles: ["Magic", "All styles"], loot: "Lunar spells · bossing utility", payoff: "Prepare Lunar spellbook utility and island supplies for sustained bossing." },
     ],
   },
   {
@@ -218,10 +264,10 @@ export const pvmRegions = [
     color: "#b86c62",
     availability: "Optional unlock",
     targets: [
-      { id: "forinthry-kbd", phase: "foundation", name: "King Black Dragon", difficulty: "Early boss", styles: ["All styles"], payoff: "A quick early kill target with simple positioning and dragonfire preparation." },
-      { id: "forinthry-daemonheim", phase: "upgrade", name: "Daemonheim arsenal", difficulty: "Support farm", styles: ["All styles"], payoff: "Unlock Dungeoneering and its shop, including a broad T80–90 weapon progression spine." },
-      { id: "forinthry-ed2", phase: "upgrade", name: "Dragonkin Laboratory", difficulty: "Elite Dungeon", styles: ["Magic", "All styles"], payoff: "Farm ability codices and draconic energy; League drops also supply tectonic energy." },
-      { id: "forinthry-ed3", phase: "capstone", name: "The Shadow Reef", difficulty: "Elite Dungeon", styles: ["Ranged", "All styles"], payoff: "Push through Ambassador for the Eldritch crossbow chase." },
+      { id: "forinthry-kbd", phase: "foundation", name: "King Black Dragon", difficulty: "Early boss", styles: ["All styles"], loot: "Dragon Rider gear · draconic visage", payoff: "A quick early kill target with simple positioning and dragonfire preparation." },
+      { id: "forinthry-daemonheim", phase: "upgrade", name: "Daemonheim arsenal", difficulty: "Support farm", styles: ["All styles"], loot: "Broad T80–90 weapon progression", payoff: "Unlock Dungeoneering and its shop, including a broad T80–90 weapon progression spine." },
+      { id: "forinthry-ed2", phase: "upgrade", name: "Dragonkin Laboratory", difficulty: "Elite Dungeon", styles: ["Magic", "All styles"], loot: "Ability codices · draconic + tectonic energy", payoff: "Farm ability codices and draconic energy; League drops also supply tectonic energy." },
+      { id: "forinthry-ed3", phase: "capstone", name: "The Shadow Reef", difficulty: "Elite Dungeon", styles: ["Ranged", "All styles"], loot: "Eldritch crossbow pieces", payoff: "Push through Ambassador for the Eldritch crossbow chase." },
     ],
   },
   {
@@ -230,11 +276,11 @@ export const pvmRegions = [
     color: "#cf9464",
     availability: "Optional unlock",
     targets: [
-      { id: "desert-kalphites", phase: "foundation", name: "Kalphite Queen", difficulty: "Early boss", styles: ["Hybrid", "All styles"], payoff: "Open a straightforward desert boss ladder before moving into group encounters." },
-      { id: "desert-gwd2", phase: "upgrade", name: "Heart of Gielinor", difficulty: "Mid-game hub", styles: ["All styles"], payoff: "Farm T80–85 weapons, armour and components across four scalable generals." },
-      { id: "desert-kalphite-king", phase: "upgrade", name: "Kalphite King", difficulty: "Mechanics check", styles: ["Melee", "All styles"], payoff: "Chase T90 drygore weapons and practise defensive timing." },
-      { id: "desert-telos", phase: "capstone", name: "Telos", difficulty: "Enrage", styles: ["All styles"], payoff: "Scale an endgame solo encounter for T92 weapons and dormant Seren armour." },
-      { id: "desert-amascut", phase: "capstone", name: "Amascut", difficulty: "Endgame", styles: ["Magic", "Melee"], payoff: "Target the Desert's newest aspirational encounter and its high-tier Magic and Melee rewards." },
+      { id: "desert-kalphites", phase: "foundation", name: "Kalphite Queen", difficulty: "Early boss", styles: ["Hybrid", "All styles"], loot: "Early supplies · Dragon chainbody", payoff: "Open a straightforward desert boss ladder before moving into group encounters." },
+      { id: "desert-gwd2", phase: "upgrade", name: "Heart of Gielinor", difficulty: "Mid-game hub", styles: ["All styles"], loot: "T80–85 weapons · armour · components", payoff: "Farm T80–85 weapons, armour and components across four scalable generals." },
+      { id: "desert-kalphite-king", phase: "upgrade", name: "Kalphite King", difficulty: "Mechanics check", styles: ["Melee", "All styles"], loot: "T90 Drygore weapons", payoff: "Chase T90 drygore weapons and practise defensive timing." },
+      { id: "desert-telos", phase: "capstone", name: "Telos", difficulty: "Enrage", styles: ["All styles"], loot: "T92 weapons · dormant Seren armour", payoff: "Scale an endgame solo encounter for T92 weapons and dormant Seren armour." },
+      { id: "desert-amascut", phase: "capstone", name: "Amascut", difficulty: "Endgame", styles: ["Magic", "Melee"], loot: "High-tier Magic · Melee rewards", payoff: "Target the Desert's newest aspirational encounter and its high-tier Magic and Melee rewards." },
     ],
   },
   {
@@ -243,9 +289,9 @@ export const pvmRegions = [
     color: "#a28ab5",
     availability: "Optional unlock",
     targets: [
-      { id: "morytania-barrows", phase: "foundation", name: "Barrows", difficulty: "Early farm", styles: ["All styles"], payoff: "Build hybrid armour options and begin the defender upgrade chain." },
-      { id: "morytania-rots", phase: "upgrade", name: "Barrows: Rise of the Six", difficulty: "Group or solo", styles: ["All styles"], payoff: "Farm malevolent energy and the shields used for T90 defenders." },
-      { id: "morytania-araxxor", phase: "capstone", name: "Araxxor", difficulty: "Enrage", styles: ["Melee", "Ranged", "Magic"], payoff: "Assemble a Noxious T90 weapon while scaling a repeatable solo challenge." },
+      { id: "morytania-barrows", phase: "foundation", name: "Barrows", difficulty: "Early farm", styles: ["All styles"], loot: "Barrows armour · defender bases", payoff: "Build hybrid armour options and begin the defender upgrade chain." },
+      { id: "morytania-rots", phase: "upgrade", name: "Barrows: Rise of the Six", difficulty: "Group or solo", styles: ["All styles"], loot: "Malevolent energy · T90 defender shields", payoff: "Farm malevolent energy and the shields used for T90 defenders." },
+      { id: "morytania-araxxor", phase: "capstone", name: "Araxxor", difficulty: "Enrage", styles: ["Melee", "Ranged", "Magic"], loot: "Noxious T90 weapon components", payoff: "Assemble a Noxious T90 weapon while scaling a repeatable solo challenge." },
     ],
   },
   {
@@ -254,9 +300,9 @@ export const pvmRegions = [
     color: "#75b890",
     availability: "Optional unlock",
     targets: [
-      { id: "tirannwn-prif", phase: "foundation", name: "Prifddinas preparation", difficulty: "Support unlock", styles: ["All styles"], payoff: "Activate elven combat services, crystal equipment and combination-potion support." },
-      { id: "tirannwn-lost-grove", phase: "upgrade", name: "Lost Grove creatures", difficulty: "High Slayer", styles: ["Melee", "Ranged", "Magic"], payoff: "Hunt Cinderbane gloves and build supplies for the region's capstone." },
-      { id: "tirannwn-solak", phase: "capstone", name: "Solak", difficulty: "Group endgame", styles: ["All styles"], payoff: "Take on the Lost Grove's main boss for Blightbound crossbows and Erethdor's grimoire." },
+      { id: "tirannwn-prif", phase: "foundation", name: "Prifddinas preparation", difficulty: "Support unlock", styles: ["All styles"], loot: "Crystal equipment · combination potions", payoff: "Activate elven combat services, crystal equipment and combination-potion support." },
+      { id: "tirannwn-lost-grove", phase: "upgrade", name: "Lost Grove creatures", difficulty: "High Slayer", styles: ["Melee", "Ranged", "Magic"], loot: "Cinderbane gloves", payoff: "Hunt Cinderbane gloves and build supplies for the region's capstone." },
+      { id: "tirannwn-solak", phase: "capstone", name: "Solak", difficulty: "Group endgame", styles: ["All styles"], loot: "Blightbound crossbows · Erethdor's grimoire", payoff: "Take on the Lost Grove's main boss for Blightbound crossbows and Erethdor's grimoire." },
     ],
   },
   {
@@ -265,9 +311,9 @@ export const pvmRegions = [
     color: "#d08166",
     availability: "Optional unlock",
     targets: [
-      { id: "anachronia-matriarchs", phase: "foundation", name: "Rex Matriarchs", difficulty: "Style trio", styles: ["Hybrid", "All styles"], payoff: "Farm complete upgraded rings directly under the confirmed League drop adjustment." },
-      { id: "anachronia-raksha", phase: "upgrade", name: "Raksha", difficulty: "High mechanics", styles: ["Ranged", "Magic", "All styles"], payoff: "Chase Greater Ricochet, Greater Chain and the Fleeting boots upgrade." },
-      { id: "anachronia-osseous", phase: "capstone", name: "Osseous", difficulty: "Endgame", styles: ["Necromancy", "All styles"], payoff: "Push the fourth Matriarch for Necromancy-focused rewards and ring upgrades." },
+      { id: "anachronia-matriarchs", phase: "foundation", name: "Rex Matriarchs", difficulty: "Style trio", styles: ["Hybrid", "All styles"], loot: "Complete upgraded rings · League-adjusted", payoff: "Farm complete upgraded rings directly under the confirmed League drop adjustment." },
+      { id: "anachronia-raksha", phase: "upgrade", name: "Raksha", difficulty: "High mechanics", styles: ["Ranged", "Magic", "All styles"], loot: "Greater Ricochet · Greater Chain · Fleeting boots", payoff: "Chase Greater Ricochet, Greater Chain and the Fleeting boots upgrade." },
+      { id: "anachronia-osseous", phase: "capstone", name: "Osseous", difficulty: "Endgame", styles: ["Necromancy", "All styles"], loot: "Necromancy rewards · ring upgrades", payoff: "Push the fourth Matriarch for Necromancy-focused rewards and ring upgrades." },
     ],
   },
 ]
@@ -508,6 +554,24 @@ export const tierOneRelics = [
 ]
 
 export const revealedRelics = [
+  {
+    name: "Naragi Edict",
+    revealed: "4 Aug",
+    latest: true,
+    summary: "A 90-second Sliver that heals 10,000 life points four times, boosts combat stats to 255 and revives you if you die.",
+  },
+  {
+    name: "Production Master",
+    revealed: "4 Aug",
+    latest: true,
+    summary: "A Brooch with unlimited exquisite urns, permanent +6 production boosts, portable perks, bulk processing and one-action Masterwork.",
+  },
+  {
+    name: "Antiquarian",
+    revealed: "4 Aug",
+    latest: true,
+    summary: "Gain 1,000 monolith energy and every Archaeology relic, halve restoration costs, earn 10× chronotes and receive collection caskets.",
+  },
   { name: "Superheated", revealed: "28 Jul", summary: "Auto-burn logs, auto-cook fish and heavily accelerate bar smelting." },
   { name: "Crystal Grace", revealed: "28 Jul", summary: "Rune and ritual utility with altar travel and broad spell access." },
   { name: "Divine Druid", revealed: "29 Jul", summary: "Herblore, Summoning and Divination processing utility." },
@@ -533,6 +597,9 @@ export const blessingReveals = {
   1: { chaos: "Adrenaline Junkie", balance: "Big Boned", order: "Teragard's Aegis" },
   2: { chaos: "Abyssal Cinders", balance: "Barkscales", order: "Striking Light" },
   3: { chaos: "Avernic Rampage", balance: "Eternal Sustenance", order: "Steadfast Will" },
+  5: { chaos: "Havoc Born", balance: "True Equilibrium", order: "Higher Power" },
+  6: { chaos: "Unholy Critical", balance: "Tearing Thorns", order: "Lord of Light" },
+  7: { chaos: "Perfidious", balance: "Envenomed", order: "Tempered Heart" },
 }
 
 export const blessingDescriptions = {
@@ -551,10 +618,26 @@ export const blessingDescriptions = {
     balance: "Food is not consumed when eaten, and eating no longer drains adrenaline.",
     order: "Empowers defensive abilities: Reflect returns full damage, Revenge reaches 20 stacks for twice as long, and Preparation reduces cooldowns by 12 seconds.",
   },
+  5: {
+    chaos: "Increases damage by 20%, but reduces maximum life points and armour value by 25% each.",
+    balance: "For each distinct Blessing alignment chosen, gain 75 base ability damage, 50 armour, 500 life points, 5% critical-strike chance, 7.5% critical-strike damage and 5 prayer bonus. Choices before and after this tier count, up to all three alignments.",
+    order: "Increases base ability damage by 30%, but removes access to Berserk, Death's Swiftness, Living Death and Sunshine.",
+  },
+  6: {
+    chaos: "Adds 15% critical-strike chance, capped at 50%, and converts excess chance into critical-strike damage. Inferno of Zamorak gains 50% critical damage and also triggers on critical strikes for 100–200% ability damage.",
+    balance: "Damage-over-time abilities last twice as long. Every fifth damage-over-time hit triggers Grasp of Guthix, adding damage equal to 20–300% of maximum life points and dealing 80–120% ability damage as poison in a 3×3 area.",
+    order: "Every 14.4 seconds, basic attacks trigger five Lights of Saradomin on random nearby tiles; each hits up to eight targets within one tile for 40–60% ability damage plus 250% of armour value. Damage rises 2% per prayer bonus and heals you for 5% of damage dealt.",
+  },
+  7: {
+    chaos: "Empowers Inferno of Zamorak, Grasp of Guthix and Light of Saradomin: Inferno activates five times as often, Grasp triggers after two hits and Light's cooldown falls to 4.8 seconds.",
+    balance: "Increases poison damage by 50%, plus another 2% per Herblore level. Damaging an enemy disables its poison immunity for 30 seconds.",
+    order: "Generates 6% adrenaline every 1.2 seconds.",
+  },
 }
 
 export const godBlessingReveals = {
   4: { chaos: "Demon's Mark", balance: "Splash Zone", order: "Sacred Fervor" },
+  8: { chaos: "Chaotic Insight", balance: "Power Archive", order: "Genesis Essence" },
 }
 
 export const godBlessingDescriptions = {
@@ -562,6 +645,11 @@ export const godBlessingDescriptions = {
     chaos: "Your accuracy is calculated as though you are always using the target's weakness.",
     balance: "Increases area-of-effect damage by 30%, with extra damage against large targets based on their configured size.",
     order: "Reduces the cooldown of all offensive abilities by 30%.",
+  },
+  8: {
+    chaos: "Each equipped combat item counts as two additional pieces toward its set effect.",
+    balance: "Grants the Automaton Control Bot, which stores up to 20 weapon or armour gizmos and applies their effects without augmented equipment. Stored combat-perk ranks are doubled unless extra ranks provide no benefit.",
+    order: "Treats your equipped weapons as tier 120.",
   },
 }
 
